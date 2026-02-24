@@ -10,9 +10,10 @@ import Link from "next/link";
 
 interface SourceClientProps {
   initialDocuments: SourceDocument[];
+  backendConfigured?: boolean;
 }
 
-function SourceContent({ initialDocuments }: SourceClientProps) {
+function SourceContent({ initialDocuments, backendConfigured = true }: SourceClientProps) {
   const { t } = useI18n();
   const [documents, setDocuments] = useState<SourceDocument[]>(initialDocuments);
   const [sortBy, setSortBy] = useState<SortOption>("uploaded_at");
@@ -38,6 +39,18 @@ function SourceContent({ initialDocuments }: SourceClientProps) {
 
   const handleSortChange = async (newSort: SortOption) => {
     setSortBy(newSort);
+    if (!backendConfigured) {
+      setDocuments((prev) =>
+        [...prev].sort((a, b) => {
+          if (newSort === "document_date") {
+            return (b.document_date || "").localeCompare(a.document_date || "");
+          }
+          return b.uploaded_at.localeCompare(a.uploaded_at);
+        })
+      );
+      return;
+    }
+
     try {
       const res = await fetch(`/api/sources?sort=${newSort}`);
       const data = await res.json();
@@ -104,7 +117,12 @@ function SourceContent({ initialDocuments }: SourceClientProps) {
               <LanguageToggle />
               <button
                 onClick={() => setShowUploader(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-amber-500 text-white font-medium rounded-lg hover:bg-amber-600 transition-colors shadow-sm"
+                disabled={!backendConfigured}
+                className={`flex items-center gap-2 px-4 py-2 font-medium rounded-lg transition-colors shadow-sm ${
+                  backendConfigured
+                    ? "bg-amber-500 text-white hover:bg-amber-600"
+                    : "bg-amber-200 text-amber-600 cursor-not-allowed"
+                }`}
               >
                 <svg
                   className="w-5 h-5"
@@ -119,7 +137,9 @@ function SourceContent({ initialDocuments }: SourceClientProps) {
                     d="M12 4v16m8-8H4"
                   />
                 </svg>
-                <span className="hidden sm:inline">{t("uploadDocument")}</span>
+                <span className="hidden sm:inline">
+                  {backendConfigured ? t("uploadDocument") : "Preview Mode"}
+                </span>
               </button>
             </div>
           </div>
@@ -170,6 +190,7 @@ function SourceContent({ initialDocuments }: SourceClientProps) {
             </p>
             <button
               onClick={() => setShowUploader(true)}
+              disabled={!backendConfigured}
               className="flex items-center gap-2 px-6 py-3 bg-amber-500 text-white font-medium rounded-lg hover:bg-amber-600 transition-colors"
             >
               <svg
@@ -185,14 +206,14 @@ function SourceContent({ initialDocuments }: SourceClientProps) {
                   d="M12 4v16m8-8H4"
                 />
               </svg>
-              {t("uploadDocument")}
+              {backendConfigured ? t("uploadDocument") : "Preview Mode"}
             </button>
           </div>
         )}
       </div>
 
       {/* Upload modal */}
-      {showUploader && (
+      {showUploader && backendConfigured && (
         <SourceUploader
           onClose={() => setShowUploader(false)}
           onUpload={handleUpload}
@@ -206,16 +227,23 @@ function SourceContent({ initialDocuments }: SourceClientProps) {
           onClose={() => setSelectedDocument(null)}
           onUpdate={handleUpdate}
           onDelete={handleDelete}
+          readOnly={!backendConfigured}
         />
       )}
     </div>
   );
 }
 
-export default function SourceClient({ initialDocuments }: SourceClientProps) {
+export default function SourceClient({
+  initialDocuments,
+  backendConfigured = true,
+}: SourceClientProps) {
   return (
     <I18nProvider>
-      <SourceContent initialDocuments={initialDocuments} />
+      <SourceContent
+        initialDocuments={initialDocuments}
+        backendConfigured={backendConfigured}
+      />
     </I18nProvider>
   );
 }
