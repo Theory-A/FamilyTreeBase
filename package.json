@@ -1,0 +1,41 @@
+{
+  "name": "qifamilytree",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "tsc --noEmit",
+    "setup:verify": "node --env-file=.env.local scripts/verify-setup.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Theory-A/QiFamilyTree.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Theory-A/QiFamilyTree/issues"
+  },
+  "homepage": "https://github.com/Theory-A/QiFamilyTree#readme",
+  "description": "",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.93.1",
+    "@types/node": "^25.0.10",
+    "@types/react": "^19.2.9",
+    "@types/react-dom": "^19.2.3",
+    "framer-motion": "^12.29.2",
+    "next": "^16.1.5",
+    "pinyin-pro": "^3.28.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18"
+  }
+}

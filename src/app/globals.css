@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+/* Font families */
+.font-chinese {
+  font-family: "Ma Shan Zheng", serif;
+  font-weight: 400;
+}
+
+.font-chinese-cursive {
+  font-family: "Zhi Mang Xing", cursive;
+}
+
+.font-sans {
+  font-family: "Montserrat", system-ui, sans-serif;
+}
+
+/* Vertical writing mode for traditional Chinese text */
+.writing-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
+/* Detail panel emerge animation - uses keyframe animation on mount */
+@keyframes panel-emerge {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scaleY(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+.detail-panel {
+  overflow: hidden;
+}
+
+.detail-panel.open {
+  animation: panel-emerge 0.3s ease-out forwards;
+  overflow: visible;
+}
+
+.detail-panel > div {
+  overflow: hidden;
+}
+
+.detail-panel.open > div {
+  overflow: visible;
+}
+
+/* Custom animations for the family tree */
+@keyframes slide-in-from-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-from-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-in {
+  animation-duration: 200ms;
+  animation-fill-mode: both;
+}
+
+.slide-in-from-top-2 {
+  animation-name: slide-in-from-top;
+}
+
+.slide-in-from-left-2 {
+  animation-name: slide-in-from-left;
+}
+
+/* Smooth transitions for interactive elements */
+button {
+  transition-property: transform, box-shadow, background-color, border-color;
+  transition-duration: 150ms;
+}
+
+/* Better text rendering for Chinese characters */
+body {
+  font-feature-settings: "kern" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* iOS PWA safe area support - prevents content from being hidden under notch */
+html {
+  min-height: calc(100% + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background-color: #fffbeb; /* amber-50 to fill notch area */
+}
+
+/* Custom scrollbar for the tree container */
+.overflow-x-auto::-webkit-scrollbar {
+  height: 8px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 640px) {
+  /* Larger touch targets */
+  button {
+    min-height: 44px;
+  }
+
+  /* Better tap highlighting */
+  button:active {
+    -webkit-tap-highlight-color: rgba(217, 119, 6, 0.1);
+  }
+}
+
+/* Safe area padding for notched phones */
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+
+.pt-safe-8 {
+  padding-top: calc(2rem + env(safe-area-inset-top));
+}
+
+.pt-safe-3 {
+  padding-top: calc(0.75rem + env(safe-area-inset-top));
+}
+
+.pt-safe-4 {
+  padding-top: calc(1rem + env(safe-area-inset-top));
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Slide transition for mobile navigation */
+.slide-enter {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.slide-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 300ms ease-out, opacity 300ms ease-out;
+}
+
+.slide-exit {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.slide-exit-active {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 300ms ease-out, opacity 300ms ease-out;
+}

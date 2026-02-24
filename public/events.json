@@ -1,0 +1,112 @@
+{
+  "events": [
+    {
+      "name": "Taiping Rebellion",
+      "name_zh": "太平天国运动",
+      "start_year": 1850,
+      "end_year": 1864
+    },
+    {
+      "name": "First Sino-Japanese War",
+      "name_zh": "甲午战争",
+      "start_year": 1894,
+      "end_year": 1895
+    },
+    {
+      "name": "Boxer Rebellion",
+      "name_zh": "义和团运动",
+      "start_year": 1899,
+      "end_year": 1901
+    },
+    {
+      "name": "Fall of Qing Dynasty",
+      "name_zh": "清朝灭亡",
+      "start_year": 1911,
+      "end_year": 1912
+    },
+    {
+      "name": "Second Sino-Japanese War",
+      "name_zh": "抗日战争",
+      "start_year": 1937,
+      "end_year": 1945
+    },
+    {
+      "name": "Chinese Civil War",
+      "name_zh": "国共内战",
+      "start_year": 1945,
+      "end_year": 1949
+    },
+    {
+      "name": "Founding of PRC",
+      "name_zh": "中华人民共和国成立",
+      "start_year": 1949,
+      "end_year": 1949
+    },
+    {
+      "name": "Great Leap Forward",
+      "name_zh": "大跃进",
+      "start_year": 1958,
+      "end_year": 1962
+    },
+    {
+      "name": "Cultural Revolution",
+      "name_zh": "文化大革命",
+      "start_year": 1966,
+      "end_year": 1976
+    },
+    {
+      "name": "Reform and Opening Up",
+      "name_zh": "改革开放",
+      "start_year": 1978,
+      "end_year": 1978
+    },
+    {
+      "name": "Tiananmen Square Protests",
+      "name_zh": "六四事件",
+      "start_year": 1989,
+      "end_year": 1989
+    },
+    {
+      "name": "Fall of Berlin Wall",
+      "name_zh": "柏林墙倒塌",
+      "start_year": 1989,
+      "end_year": 1989
+    },
+    {
+      "name": "Hong Kong Handover",
+      "name_zh": "香港回归",
+      "start_year": 1997,
+      "end_year": 1997
+    },
+    {
+      "name": "9/11 Attacks",
+      "name_zh": "九一一事件",
+      "start_year": 2001,
+      "end_year": 2001
+    },
+    {
+      "name": "SARS Outbreak",
+      "name_zh": "非典疫情",
+      "start_year": 2003,
+      "end_year": 2003
+    },
+    {
+      "name": "Beijing Olympics",
+      "name_zh": "北京奥运会",
+      "start_year": 2008,
+      "end_year": 2008
+    },
+    {
+      "name": "COVID-19 Start",
+      "name_zh": "新冠疫情",
+      "start_year": 2020,
+      "end_year": 2020
+    },
+    {
+      "name": "COVID-19 Shanghai Lockdown",
+      "name_zh": "新冠疫情封控",
+      "start_year": 2022,
+      "end_year": 2022
+    }
+  ]
+}
