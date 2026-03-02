@@ -1,15 +1,18 @@
 "use client";
 
 import { useState, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get("redirect") || "/";
+  const redirectParam = searchParams.get("redirect");
+  const redirectTo =
+    redirectParam && redirectParam.startsWith("/") && !redirectParam.startsWith("//")
+      ? redirectParam
+      : "/";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -22,12 +25,13 @@ function LoginForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password }),
       });
+      const data = (await res.json().catch(() => null)) as { error?: string } | null;
 
       if (res.ok) {
-        router.push(redirectTo);
-        router.refresh();
+        // Force a full navigation so the new auth cookie is visible immediately.
+        window.location.assign(redirectTo);
       } else {
-        setError("Incorrect password");
+        setError(data?.error || "Incorrect password");
       }
     } catch {
       setError("Something went wrong");
@@ -54,6 +58,10 @@ function LoginForm() {
           placeholder="Enter password"
           required
         />
+        <p className="mt-2 text-xs text-gray-500">
+          If login keeps failing, make sure <code>FAMILY_PASSWORD</code> is set in
+          <code className="mx-1 rounded bg-gray-100 px-1 py-0.5">.env.local</code>.
+        </p>
       </div>
       {error && (
         <p className="text-sm text-red-600">{error}</p>

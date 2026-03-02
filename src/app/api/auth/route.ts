@@ -8,7 +8,12 @@ export async function POST(request: Request) {
 
   if (!correctPassword) {
     console.error("FAMILY_PASSWORD environment variable is not set");
-    return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: "Login is unavailable until FAMILY_PASSWORD is set in .env.local.",
+      },
+      { status: 500 }
+    );
   }
 
   if (password === correctPassword) {
@@ -17,6 +22,7 @@ export async function POST(request: Request) {
     // Set a cookie that lasts 30 days
     response.cookies.set("family-auth", "authenticated", {
       httpOnly: true,
+      path: "/",
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       maxAge: 60 * 60 * 24 * 30, // 30 days
@@ -30,6 +36,6 @@ export async function POST(request: Request) {
 
 export async function DELETE() {
   const response = NextResponse.json({ success: true });
-  response.cookies.delete("family-auth");
+  response.cookies.delete({ name: "family-auth", path: "/" });
   return response;
 }
